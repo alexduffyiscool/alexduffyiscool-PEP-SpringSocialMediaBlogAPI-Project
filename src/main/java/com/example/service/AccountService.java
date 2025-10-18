@@ -18,6 +18,10 @@ public class AccountService {
     {
       return Optional.empty();
     }
+    if (accountRepository.findByUsername(account.getUsername()).isPresent())
+    {
+      return Optional.of(new Account(-1, "", ""));
+    }
 
     return Optional.of(accountRepository.save(account));
   }

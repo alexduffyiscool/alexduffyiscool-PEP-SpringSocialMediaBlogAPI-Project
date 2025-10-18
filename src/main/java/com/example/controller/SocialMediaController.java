@@ -47,7 +47,11 @@ public class SocialMediaController {
     }
     else if (result.isEmpty())
     {
-      return ResponseEntity.badRequest().build();
+      return ResponseEntity.status(400).build();
+    }
+    if (result.get().getAccountId() == -1)
+    {
+      return ResponseEntity.status(409).build();
     }
     else
     {
@@ -76,7 +80,7 @@ public class SocialMediaController {
   }
 
   @GetMapping("/messages/{messageId}")
-  public ResponseEntity<?> getMessageById(@PathVariable Integer messageId)
+  public ResponseEntity<?> getMessageById(@PathVariable("messageId") Integer messageId)
   {
     Optional<Message> result = messageService.getMessageById(messageId);
     return ResponseEntity.ok(result.orElse(null));
@@ -99,8 +103,9 @@ public class SocialMediaController {
   }
 
   @GetMapping("/accounts/{accountId}/messages")
-  public List<Message> getMessagesByUser(@PathVariable Integer id)
+  public ResponseEntity<List<Message>> getMessagesByUser(@PathVariable Integer accountId)
   {
-    return messageService.getMessagesByUser(id);
+    List<Message> messages = messageService.getMessagesByAccountId(accountId);
+    return ResponseEntity.ok(messages);
   }
 }
