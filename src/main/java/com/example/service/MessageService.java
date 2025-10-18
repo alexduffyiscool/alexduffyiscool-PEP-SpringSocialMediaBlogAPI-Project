@@ -20,7 +20,7 @@ public class MessageService {
 
   public Optional<Message> createMessage(Message message)
   {
-    if (message.getMessageText() == null || message.getMessageText().isBlank() || message.getMessageText().length() > 255) //|| !accountRepository.existsById(message.getPostedBy()))
+    if (message.getMessageText() == null || message.getMessageText().isBlank() || message.getMessageText().length() > 255 || !accountRepository.existsById(message.getPostedBy()))
     {
       return Optional.empty();
     }
