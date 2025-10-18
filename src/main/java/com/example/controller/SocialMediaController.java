@@ -70,15 +70,15 @@ public class SocialMediaController {
   }
 
   @GetMapping("/messages")
-  public List<Messages> getAllMessages()
+  public List<Message> getAllMessages()
   {
     return messageService.getAllMessages();
   }
 
   @GetMapping("/messages/{messageId}")
-  public List<Messages> getMessageById(@PathVariable Integer id)
+  public ResponseEntity<?> getMessageById(@PathVariable Integer id)
   {
-    public Optional<Message> result = messageService.getMessageById(id);
+    Optional<Message> result = messageService.getMessageById(id);
     return ResponseEntity.ok(result.orElse(null));
   }
 
@@ -99,7 +99,7 @@ public class SocialMediaController {
   }
 
   @GetMapping("/accounts/{accountId}/messages")
-  public List<Messages> getMessagesByUser(@PathVariable Integer id)
+  public List<Message> getMessagesByUser(@PathVariable Integer id)
   {
     return messageService.getMessagesByUser(id);
   }
