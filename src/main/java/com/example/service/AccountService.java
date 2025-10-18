@@ -14,10 +14,11 @@ public class AccountService {
 
   public Optional<Account> register(Account account)
   {
-    if (account.getUsername() == null || account.getUsername().isBlank() || account.getUsername().length() < 4)
+    if (account.getUsername() == null || account.getUsername().isBlank() || account.getPassword() == null || account.getPassword().length() < 4) 
     {
       return Optional.empty();
     }
+
     return Optional.of(accountRepository.save(account));
   }
 

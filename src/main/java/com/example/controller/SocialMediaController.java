@@ -76,21 +76,21 @@ public class SocialMediaController {
   }
 
   @GetMapping("/messages/{messageId}")
-  public ResponseEntity<?> getMessageById(@PathVariable Integer id)
+  public ResponseEntity<?> getMessageById(@PathVariable Integer messageId)
   {
-    Optional<Message> result = messageService.getMessageById(id);
+    Optional<Message> result = messageService.getMessageById(messageId);
     return ResponseEntity.ok(result.orElse(null));
   }
 
   @DeleteMapping("/messages/{messageId}")
-  public ResponseEntity<?> deleteMessage(@PathVariable Integer id)
+  public ResponseEntity<?> deleteMessage(@PathVariable Integer messageId)
   {
-    boolean deleted = messageService.deleteMessage(id);
+    boolean deleted = messageService.deleteMessage(messageId);
     if (deleted) return ResponseEntity.ok(1);
     return ResponseEntity.ok().build();
   }
 
-  @PatchMapping("/message/{messageId}")
+  @PatchMapping("/messages/{messageId}")
   public ResponseEntity<?> updateMessage(@PathVariable Integer messageId, @RequestBody Message newMessage)
   {
     boolean updated = messageService.updateMessage(messageId, newMessage.getMessageText());
